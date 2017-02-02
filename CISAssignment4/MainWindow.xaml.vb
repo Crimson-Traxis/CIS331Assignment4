@@ -1,4 +1,7 @@
-﻿Class MainWindow
+﻿Imports System.Net.Http
+Imports System.Text.RegularExpressions
+
+Class MainWindow
 
     Private degreeDictionary As Dictionary(Of Degree, List(Of Course))
     Private courseList As List(Of Course)
@@ -7,6 +10,7 @@
         InitializeComponent()
         degreeDictionary = New Dictionary(Of Degree, List(Of Course))
         courseList = New List(Of Course)
+        SyncFromOnline()
     End Sub
 
     Private Sub buttonBuildDegrees_Click(sender As Object, e As RoutedEventArgs) Handles buttonBuildDegrees.Click
@@ -26,7 +30,7 @@
                 MessageBox.Show("Degree name must not be left blank.")
             End If
         Else
-                MessageBox.Show("Degree Prefix must not be left blank.")
+            MessageBox.Show("Degree Prefix must not be left blank.")
         End If
     End Sub
 
@@ -57,7 +61,7 @@
                 MessageBox.Show("Course name must not be left blank.")
             End If
         Else
-                MessageBox.Show("Course Prefix must not be left blank.")
+            MessageBox.Show("Course Prefix must not be left blank.")
         End If
     End Sub
 
@@ -107,6 +111,28 @@
         For Each course As Course In courseList
             listViewCourses.Items.Add(course)
         Next
+    End Sub
+
+    Public Async Sub SyncFromOnline()
+        Dim degreePrefixes As List(Of String) = New List(Of String)
+        Dim responseString As String = ""
+        Using client As HttpClient = New HttpClient()
+            Dim address As Uri = New Uri("http://catalog.svsu.edu/content.php?catoid=20&navoid=529")
+            Dim response = Await client.GetAsync(address)
+            responseString = Await response.Content.ReadAsStringAsync()
+        End Using
+        Dim pattern As String = "<option value=""[a-zA-Z]+"">.+</option>"
+        Dim r As Regex = New Regex(pattern)
+        Dim match As Match = r.Match(responseString)
+        While (match.Success)
+            Dim seperatedValues As String() = match.Value.Split(New Char() {"<", ">"}, StringSplitOptions.RemoveEmptyEntries)
+            degreePrefixes.Add(seperatedValues(1))
+            match = match.NextMatch
+        End While
+        MessageBox.Show(String.Join(",", degreePrefixes))
+        Dim firstHalf As String = "http://catalog.svsu.edu/content.php?filter%5B27%5D="
+        Dim lastHalf As String = "&filter%5B29%5D=&filter%5Bcourse_type%5D=-1&filter%5Bkeyword%5D=&filter%5B32%5D=1&filter%5Bcpage%5D=1&cur_cat_oid=20&expand=&navoid=529&search_database=Filter&filter%5Bexact_match%5D=1#acalog_template_course_filter"
+
     End Sub
 
 End Class
