@@ -68,7 +68,7 @@ Class MainWindow
     Private Sub buttonAddCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddCourse.Click
         If textBoxCoursePrefix.Text <> "" Then
             If textBoxCourseName.Text <> "" Then
-                Dim cor As Course = New Course(New CourseDescription("", "", ""), textBoxCoursePrefix.Text.ToUpper().Replace(" ", ""), textBoxCourseName.Text)
+                Dim cor As Course = New Course(New CourseDescription("", "", "0"), textBoxCoursePrefix.Text.ToUpper().Replace(" ", ""), textBoxCourseName.Text)
                 courseList.Add(cor)
                 listViewCourses.Items.Add(New ListViewCourseControl(cor, False))
                 textBoxCourseName.Text = ""
@@ -93,7 +93,8 @@ Class MainWindow
     End Sub
 
     Private Sub buttonImportCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportCourse.Click
-
+        Dim importCourseWind As ImportCourses = New ImportCourses()
+        importCourseWind.ShowDialog()
     End Sub
 
     Private Sub textBoxDegreePrefix_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBoxDegreePrefix.TextChanged

@@ -19,7 +19,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="80px"/>
                 </Grid.RowDefinitions>
-                <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+                <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
 
                 </ListView>
                 <Grid Grid.Row="1">
@@ -108,7 +108,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="80px"/>
                 </Grid.RowDefinitions>
-                <ListView x:Name="listViewCourses" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Multiple" >
+                <ListView x:Name="listViewCourses" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
 
                 </ListView>
                 <Grid Grid.Row="1">

@@ -1,23 +1,26 @@
-﻿<Window x:Class="ImportDegrees"
+﻿<Window x:Class="ImportCourses"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="ImportDegrees" Height="300" Width="300" MinHeight="300" MinWidth="400" MaxWidth="400">
+        Title="ImportCourses" Height="500" Width="300" MinHeight="500" MinWidth="400" MaxWidth="400">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30px"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="30px" x:Name="rowProgressBar"/>
+            <RowDefinition Height="0px" x:Name="rowProgressBar"/>
             <RowDefinition Height="40px"/>
-
         </Grid.RowDefinitions>
-        <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+        <ComboBox x:Name="comboBoxDegrees" Width="250" Height="20" HorizontalAlignment="Right" Margin="0,0,5,0">
+            <ComboBoxItem Content="All"/>
+        </ComboBox>
+        <ListView x:Name="listViewCourse" Grid.Row="1" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
 
         </ListView>
-        <ProgressBar x:Name="progressBarProgress" IsIndeterminate="True" Margin="5" Grid.Row="1"/>
-        <Grid Grid.Row="2">
+        <ProgressBar x:Name="progressBarProgress" IsIndeterminate="True" Margin="5" Grid.Row="2"/>
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
