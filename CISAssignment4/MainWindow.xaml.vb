@@ -1,0 +1,96 @@
+﻿Class MainWindow
+
+    Private degreeDictionary As Dictionary(Of Degree, List(Of Course))
+    Private courseList As List(Of Course)
+
+    Public Sub New()
+        InitializeComponent()
+        degreeDictionary = New Dictionary(Of Degree, List(Of Course))
+        courseList = New List(Of Course)
+    End Sub
+
+    Private Sub buttonBuildDegrees_Click(sender As Object, e As RoutedEventArgs) Handles buttonBuildDegrees.Click
+        Dim builder As DegreeBuilder = New DegreeBuilder()
+        builder.Show()
+    End Sub
+
+    Private Sub buttonAddDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddDegree.Click
+
+        Dim deg As Degree = New Degree(textBoxDegreePrefix.Text.ToUpper(), textBoxDegreeName.Text)
+        degreeDictionary.Add(deg, New List(Of Course))
+        listViewDegrees.Items.Add(New ListViewDegreeControl(deg))
+        textBoxDegreeName.Text = ""
+        textBoxDegreePrefix.Text = ""
+    End Sub
+
+    Private Sub buttonDeleteDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonDeleteDegree.Click
+        Dim deleteList As List(Of ListViewDegreeControl) = New List(Of ListViewDegreeControl)
+        For Each degreeControl As ListViewDegreeControl In listViewDegrees.SelectedItems
+            deleteList.Add(degreeControl)
+            degreeDictionary.Remove(degreeControl.Degree)
+        Next
+        For Each degreeControl As ListViewDegreeControl In deleteList
+            listViewDegrees.Items.Remove(degreeControl)
+        Next
+    End Sub
+
+    Private Sub buttonImportDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportDegree.Click
+
+    End Sub
+
+    Private Sub buttonAddCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddCourse.Click
+        Dim cor As Course = New Course(New CourseDescription("", "", ""), textBoxCoursePrefix.Text.ToUpper(), textBoxCourseName.Text)
+        courseList.Add(cor)
+        listViewCourses.Items.Add(New ListViewCourseControl(cor))
+        textBoxCourseName.Text = ""
+        textBoxCoursePrefix.Text = ""
+    End Sub
+
+    Private Sub buttonDeleteCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonDeleteCourse.Click
+        Dim deleteList As List(Of ListViewCourseControl) = New List(Of ListViewCourseControl)
+        For Each course As ListViewCourseControl In listViewCourses.SelectedItem
+            deleteList.Add(course)
+            courseList.Remove(course.Course)
+        Next
+        For Each course As ListViewCourseControl In listViewCourses.SelectedItem
+            courseList.Remove(course.Course)
+        Next
+    End Sub
+
+    Private Sub buttonImportCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportCourse.Click
+
+    End Sub
+
+    Private Sub textBoxDegreePrefix_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBoxDegreePrefix.TextChanged
+        For Each degree As Degree In degreeDictionary.Keys
+            If degree.DegreePrefix = textBoxDegreePrefix.Text.ToUpper() Then
+                buttonAddDegree.IsEnabled = False
+                Exit For
+            Else
+                buttonAddDegree.IsEnabled = True
+            End If
+        Next
+    End Sub
+
+    Private Sub textBoxCoursePrefix_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBoxCoursePrefix.TextChanged
+        For Each course As Course In courseList
+            If course.CoursePrefix = textBoxCoursePrefix.Text.ToUpper() Then
+                buttonAddCourse.IsEnabled = False
+                Exit For
+            Else
+                buttonAddCourse.IsEnabled = True
+            End If
+        Next
+    End Sub
+
+    Public Sub RefreshGui()
+        listViewDegrees.Items.Clear()
+        listViewCourses.Items.Clear()
+        For Each degree As Degree In degreeDictionary.Keys
+            listViewDegrees.Items.Add(New ListViewDegreeControl(degree))
+        Next
+        For Each course As Course In courseList
+            listViewCourses.Items.Add(course)
+        Next
+    End Sub
+End Class

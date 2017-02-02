@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="ListViewDegreeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CISAssignment4"
+             mc:Ignorable="d">
+    <Grid>
+        <TextBlock x:Name="textBlockDegree"/>
+    </Grid>
+</UserControl>
