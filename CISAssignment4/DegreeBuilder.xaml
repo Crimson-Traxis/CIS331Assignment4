@@ -13,7 +13,7 @@
             <RowDefinition Height="4*" MinHeight="200"/>
             <RowDefinition Height="50px"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="listViewDegrees" Grid.Row="0" HorizontalContentAlignment="Stretch" Margin="0,0,0,5">
+        <ListView x:Name="listViewDegrees" Grid.Row="0" HorizontalContentAlignment="Stretch" Margin="0,0,0,5" SelectionMode="Single">
 
         </ListView>
         <GridSplitter Grid.Row="1" Height="2px" HorizontalAlignment="Stretch"/>
@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="125px"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="listViewDegreeCourses" Grid.Column="0" HorizontalContentAlignment="Stretch">
+            <ListView x:Name="listViewDegreeCourses" Grid.Column="0" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
 
             </ListView>
             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
@@ -34,7 +34,7 @@
                     <Image Source="Resources/right-arrow.png"/>
                 </Button>
             </StackPanel>
-            <ListView x:Name="listViewCourses" Grid.Column="2" HorizontalContentAlignment="Stretch">
+            <ListView x:Name="listViewCourses" Grid.Column="2" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
 
             </ListView>
         </Grid>

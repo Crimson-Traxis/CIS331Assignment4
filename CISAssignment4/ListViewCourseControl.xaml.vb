@@ -6,9 +6,14 @@
         _course = New Course()
     End Sub
 
-    Public Sub New(course As Course)
+    Public Sub New(course As Course, showInfoButton As Boolean)
         InitializeComponent()
         _course = course
+        CoursePrefix = _course.CoursePrefix
+        CourseName = _course.CourseName
+        If Not showInfoButton Then
+            buttonInfo.Visibility = Visibility.Collapsed
+        End If
     End Sub
 
     Private Sub buttonInfo_Click(sender As Object, e As RoutedEventArgs) Handles buttonInfo.Click

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CISAssignment4"
              mc:Ignorable="d">
-    <DockPanel LastChildFill="True" Margin="2">
+    <DockPanel LastChildFill="True" Margin="2" Height="25">
         <Button x:Name="buttonInfo" Height="25" Width="25" DockPanel.Dock="Right">
             <Image Stretch="Fill" Source="Resources/information.png"/>
         </Button>

@@ -15,12 +15,19 @@
     End Sub
 
     Private Sub buttonAddDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddDegree.Click
-
-        Dim deg As Degree = New Degree(textBoxDegreePrefix.Text.ToUpper(), textBoxDegreeName.Text)
-        degreeDictionary.Add(deg, New List(Of Course))
-        listViewDegrees.Items.Add(New ListViewDegreeControl(deg))
-        textBoxDegreeName.Text = ""
-        textBoxDegreePrefix.Text = ""
+        If textBoxDegreePrefix.Text <> "" Then
+            If textBoxDegreeName.Text <> "" Then
+                Dim deg As Degree = New Degree(textBoxDegreePrefix.Text.ToUpper(), textBoxDegreeName.Text)
+                degreeDictionary.Add(deg, New List(Of Course))
+                listViewDegrees.Items.Add(New ListViewDegreeControl(deg))
+                textBoxDegreeName.Text = ""
+                textBoxDegreePrefix.Text = ""
+            Else
+                MessageBox.Show("Degree name must not be left blank.")
+            End If
+        Else
+                MessageBox.Show("Degree Prefix must not be left blank.")
+        End If
     End Sub
 
     Private Sub buttonDeleteDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonDeleteDegree.Click
@@ -39,21 +46,29 @@
     End Sub
 
     Private Sub buttonAddCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddCourse.Click
-        Dim cor As Course = New Course(New CourseDescription("", "", ""), textBoxCoursePrefix.Text.ToUpper(), textBoxCourseName.Text)
-        courseList.Add(cor)
-        listViewCourses.Items.Add(New ListViewCourseControl(cor))
-        textBoxCourseName.Text = ""
-        textBoxCoursePrefix.Text = ""
+        If textBoxCoursePrefix.Text <> "" Then
+            If textBoxCourseName.Text <> "" Then
+                Dim cor As Course = New Course(New CourseDescription("", "", ""), textBoxCoursePrefix.Text.ToUpper().Replace(" ", ""), textBoxCourseName.Text)
+                courseList.Add(cor)
+                listViewCourses.Items.Add(New ListViewCourseControl(cor, False))
+                textBoxCourseName.Text = ""
+                textBoxCoursePrefix.Text = ""
+            Else
+                MessageBox.Show("Course name must not be left blank.")
+            End If
+        Else
+                MessageBox.Show("Course Prefix must not be left blank.")
+        End If
     End Sub
 
     Private Sub buttonDeleteCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonDeleteCourse.Click
         Dim deleteList As List(Of ListViewCourseControl) = New List(Of ListViewCourseControl)
-        For Each course As ListViewCourseControl In listViewCourses.SelectedItem
+        For Each course As ListViewCourseControl In listViewCourses.SelectedItems
             deleteList.Add(course)
             courseList.Remove(course.Course)
         Next
-        For Each course As ListViewCourseControl In listViewCourses.SelectedItem
-            courseList.Remove(course.Course)
+        For Each course As ListViewCourseControl In deleteList
+            listViewCourses.Items.Remove(course)
         Next
     End Sub
 
