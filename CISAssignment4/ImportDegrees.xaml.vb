@@ -1,4 +1,6 @@
 ﻿Imports System.Net.Http
+Imports System.Text.RegularExpressions
+Imports System.Threading
 
 Public Class ImportDegrees
 
@@ -7,8 +9,61 @@ Public Class ImportDegrees
     Public Sub New()
         InitializeComponent()
         _degreeList = New List(Of Degree)
-        CreateDegreese("")
+        SyncFromOnline()
     End Sub
+
+    Public Async Sub SyncFromOnline()
+        Dim degreePrefixes As List(Of String) = New List(Of String)
+        Dim responseString As String = ""
+        Using client As HttpClient = New HttpClient()
+            Dim address As Uri = New Uri("http://catalog.svsu.edu/content.php?catoid=20&navoid=529")
+            Dim response = Await client.GetAsync(address)
+            responseString = Await response.Content.ReadAsStringAsync()
+        End Using
+        Dim pattern As String = "<option value=""[a-zA-Z]+"">.+</option>"
+        Dim r As Regex = New Regex(pattern)
+        Dim match As Match = r.Match(responseString)
+        While (match.Success)
+            Dim seperatedValues As String() = match.Value.Split(New Char() {"<", ">"}, StringSplitOptions.RemoveEmptyEntries)
+            degreePrefixes.Add(seperatedValues(1))
+            match = match.NextMatch
+        End While
+        Dim firstHalf As String = "http://catalog.svsu.edu/content.php?filter%5B27%5D="
+        Dim lastHalf As String = "&filter%5B29%5D=&filter%5Bcourse_type%5D=-1&filter%5Bkeyword%5D=&filter%5B32%5D=1&filter%5Bcpage%5D=1&cur_cat_oid=20&expand=&navoid=529&search_database=Filter&filter%5Bexact_match%5D=1#acalog_template_course_filter"
+        For Each prefix In degreePrefixes
+            Dim t As Thread = New Thread(Async Sub(coursePrefix As String)
+                                             Using client As HttpClient = New HttpClient()
+                                                 Dim str As String = ""
+                                                 Dim address As Uri = New Uri(firstHalf + coursePrefix + lastHalf)
+                                                 Dim response = Await client.GetAsync(address)
+                                                 str = Await response.Content.ReadAsStringAsync()
+                                                 Dim matchString As String = "<td colspan=""2""><br><p><b>[a-zA-Z ]+</b></p></td>"
+                                                 Dim reg As Regex = New Regex(matchString)
+                                                 Dim m As Match = reg.Match(str)
+                                                 While (m.Success)
+                                                     Dispatcher.Invoke(Sub()
+                                                                           listViewDegrees.Items.Add(New ListViewDegreeControl(New Degree(coursePrefix, m.Value.Replace("<td colspan=""2""><br><p><b>", "").Replace("</b></p></td>", ""))))
+                                                                       End Sub)
+                                                     m = m.NextMatch
+                                                 End While
+                                                 If coursePrefix = degreePrefixes.Last() Then
+                                                     Dispatcher.Invoke(Sub()
+                                                                           rowProgressBar.Height = New GridLength(0)
+                                                                       End Sub)
+                                                 End If
+                                             End Using
+                                         End Sub)
+            t.Start(prefix)
+        Next
+    End Sub
+
+    Private Sub buttonImport_Click(sender As Object, e As RoutedEventArgs) Handles buttonImport.Click
+        For Each listViewDegree As ListViewDegreeControl In listViewDegrees.SelectedItems
+            _degreeList.Add(listViewDegree.Degree)
+        Next
+        Me.Close()
+    End Sub
+
     Public Property DegreeList() As List(Of Degree)
         Get
             Return _degreeList
@@ -17,22 +72,4 @@ Public Class ImportDegrees
             _degreeList = value
         End Set
     End Property
-
-    Private Async Function ParseData() As Task(Of String)
-
-    End Function
-
-    Private Async Sub CreateDegreese(data As String)
-        Dim response As String = ""
-        Using client As HttpClient = New HttpClient()
-            Try
-                Dim u As Uri = New Uri("http://catalog.svsu.edu/content.php?catoid=27&navoid=1524")
-                Dim r = Await client.GetAsync(u)
-                response = Await r.Content.ReadAsStringAsync()
-            Catch ex As Exception
-
-            End Try
-        End Using
-
-    End Sub
 End Class

@@ -9,11 +9,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="20px" x:Name="rowProgressBar"/>
             <RowDefinition Height="40px"/>
+
         </Grid.RowDefinitions>
         <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
 
         </ListView>
-        <Button x:Name="buttonImport" VerticalAlignment="Center" Width="120" Height="35" Content="Import Selected" Grid.Row="1"/>
+        <ProgressBar x:Name="progressBarProgress" IsIndeterminate="True" Margin="5" Grid.Row="1"/>
+        <Button x:Name="buttonImport" VerticalAlignment="Center" Width="120" Height="35" Content="Import Selected" Grid.Row="2"/>
     </Grid>
 </Window>
