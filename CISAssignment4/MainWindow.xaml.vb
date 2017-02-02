@@ -10,7 +10,7 @@
     End Sub
 
     Private Sub buttonBuildDegrees_Click(sender As Object, e As RoutedEventArgs) Handles buttonBuildDegrees.Click
-        Dim builder As DegreeBuilder = New DegreeBuilder()
+        Dim builder As DegreeBuilder = New DegreeBuilder(degreeDictionary, courseList)
         builder.Show()
     End Sub
 
@@ -108,4 +108,5 @@
             listViewCourses.Items.Add(course)
         Next
     End Sub
+
 End Class
