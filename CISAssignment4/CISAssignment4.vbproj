@@ -77,6 +77,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ImportDegrees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
     <Page Include="ListViewCourseControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +105,9 @@
     <Compile Include="Degree.vb" />
     <Compile Include="DegreeBuilder.xaml.vb">
       <DependentUpon>DegreeBuilder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImportDegrees.xaml.vb">
+      <DependentUpon>ImportDegrees.xaml</DependentUpon>
     </Compile>
     <Compile Include="ListViewCourseControl.xaml.vb">
       <DependentUpon>ListViewCourseControl.xaml</DependentUpon>
