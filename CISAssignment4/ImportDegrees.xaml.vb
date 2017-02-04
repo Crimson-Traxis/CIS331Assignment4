@@ -31,6 +31,8 @@ Public Class ImportDegrees
         End While
         Dim firstHalf As String = "http://catalog.svsu.edu/content.php?filter%5B27%5D="
         Dim lastHalf As String = "&filter%5B29%5D=&filter%5Bcourse_type%5D=-1&filter%5Bkeyword%5D=&filter%5B32%5D=1&filter%5Bcpage%5D=1&cur_cat_oid=27&expand=&navoid=1524&search_database=Filter#acalog_template_course_filter"
+        Dim doneCounter As Integer = 0
+        Dim threadcount As Integer = 0
         For Each prefix In degreePrefixes
             Dim t As Thread = New Thread(Async Sub(coursePrefix As String)
                                              Using client As HttpClient = New HttpClient()
@@ -43,19 +45,28 @@ Public Class ImportDegrees
                                                  Dim m As Match = reg.Match(str)
                                                  While (m.Success)
                                                      Dispatcher.Invoke(Sub()
-                                                                           listViewDegrees.Items.Add(New ListViewDegreeControl(New Degree(coursePrefix, m.Value.Replace("<td colspan=""2""><br><p><b>", "").Replace("</b></p></td>", ""))))
+                                                                           Dim tilte As String = m.Value.Replace("<td colspan=""2""><br><p><b>", "").Replace("</b></p></td>", "")
+                                                                           If Not tilte.ToLower().Contains("other") Then
+                                                                               listViewDegrees.Items.Add(New ListViewDegreeControl(New Degree(coursePrefix, tilte)))
+                                                                           End If
                                                                        End Sub)
                                                      Exit While
                                                  End While
-                                                 If coursePrefix = degreePrefixes.Last() Then
-                                                     Dispatcher.Invoke(Sub()
-                                                                           rowProgressBar.Height = New GridLength(0)
-                                                                       End Sub)
-                                                 End If
+                                                 Interlocked.Increment(doneCounter)
                                              End Using
                                          End Sub)
+            threadcount += 1
             t.Start(prefix)
         Next
+        Dim doneTracker As Thread = New Thread(Sub()
+                                                   While doneCounter < threadcount
+
+                                                   End While
+                                                   Dispatcher.Invoke(Sub()
+                                                                         rowProgressBar.Height = New GridLength(0)
+                                                                     End Sub)
+                                               End Sub)
+        doneTracker.Start()
     End Sub
 
     Private Sub buttonImport_Click(sender As Object, e As RoutedEventArgs) Handles buttonImport.Click

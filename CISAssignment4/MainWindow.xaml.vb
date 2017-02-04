@@ -70,7 +70,7 @@ Class MainWindow
             If textBoxCourseName.Text <> "" Then
                 Dim cor As Course = New Course(New CourseDescription("", "", "0"), textBoxCoursePrefix.Text.ToUpper().Replace(" ", ""), textBoxCourseName.Text)
                 courseList.Add(cor)
-                listViewCourses.Items.Add(New ListViewCourseControl(cor, False))
+                listViewCourses.Items.Add(New ListViewCourseControl(cor, True))
                 textBoxCourseName.Text = ""
                 textBoxCoursePrefix.Text = ""
             Else
@@ -93,8 +93,12 @@ Class MainWindow
     End Sub
 
     Private Sub buttonImportCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportCourse.Click
-        Dim importCourseWind As ImportCourses = New ImportCourses()
+        Dim importCourseWind As ImportCourses = New ImportCourses(degreeDictionary)
         importCourseWind.ShowDialog()
+        For Each course As Course In importCourseWind.CourseList
+            listViewCourses.Items.Add(New ListViewCourseControl(course, True))
+            courseList.Add(course)
+        Next
     End Sub
 
     Private Sub textBoxDegreePrefix_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBoxDegreePrefix.TextChanged

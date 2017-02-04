@@ -24,9 +24,9 @@
 
     Private Sub listViewDegreeCourses_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewDegreeCourses.SelectionChanged
         If listViewDegreeCourses.SelectedItems.Count > 0 Then
-            buttonMovetoDegree.IsEnabled = True
+            buttonMovetoCourses.IsEnabled = True
         Else
-            buttonMovetoDegree.IsEnabled = False
+            buttonMovetoCourses.IsEnabled = False
         End If
     End Sub
 
@@ -37,20 +37,20 @@
         Dim degreeCourseList As List(Of Course) = New List(Of Course)
         _degreeDictionary.TryGetValue(listViewDegree.Degree, degreeCourseList)
         For Each course As Course In degreeCourseList
-            listViewDegreeCourses.Items.Add(New ListViewCourseControl(course, True))
+            listViewDegreeCourses.Items.Add(New ListViewCourseControl(course, False))
         Next
         For Each course As Course In _courseList
             If Not degreeCourseList.Contains(course) Then
-                listViewCourses.Items.Add(New ListViewCourseControl(course, True))
+                listViewCourses.Items.Add(New ListViewCourseControl(course, False))
             End If
         Next
     End Sub
 
     Private Sub listViewCourses_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewCourses.SelectionChanged
         If listViewCourses.Items.Count > 0 Then
-            buttonMovetoCourses.IsEnabled = True
+            buttonMovetoDegree.IsEnabled = True
         Else
-            buttonMovetoCourses.IsEnabled = False
+            buttonMovetoDegree.IsEnabled = False
         End If
     End Sub
 

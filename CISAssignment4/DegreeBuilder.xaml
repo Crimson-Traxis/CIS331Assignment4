@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="DegreeBuilder" Height="550" Width="725" MinHeight="725" MaxWidth="725" MinWidth="725">
+        Title="DegreeBuilder" Height="550" Width="925" MinHeight="725" MaxWidth="925" MinWidth="925">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" MinHeight="200"/>

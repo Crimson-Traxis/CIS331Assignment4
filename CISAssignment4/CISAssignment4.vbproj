@@ -111,6 +111,7 @@
     <Compile Include="DegreeBuilder.xaml.vb">
       <DependentUpon>DegreeBuilder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DegreeComboBoxItem.vb" />
     <Compile Include="ImportCourses.xaml.vb">
       <DependentUpon>ImportCourses.xaml</DependentUpon>
     </Compile>

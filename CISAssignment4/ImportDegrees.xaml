@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="ImportDegrees" Height="300" Width="300" MinHeight="300" MinWidth="400" MaxWidth="400">
+        Title="ImportDegrees" Height="300" Width="400" MinHeight="300" MinWidth="400" MaxWidth="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="30px" x:Name="rowProgressBar"/>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="50px"/>
 
         </Grid.RowDefinitions>
         <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
