@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="725" MinHeight="725" MaxWidth="725" MinWidth="725">
-    <Grid Margin="5">
+        Title="MainWindow" Height="550" Width="725" MinHeight="725" MaxWidth="1125" MinWidth="1125">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" MinWidth="700"/>
+            <ColumnDefinition Width="2px"/>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+    <Grid Margin="5" Grid.Column="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" MinHeight="200"/>
             <RowDefinition Height="2px"/>
@@ -191,5 +197,10 @@
             </Grid>
         </GroupBox>
         <Button x:Name="buttonBuildDegrees" Content="Build Degrees" Width="200px" Height="35px" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4"/>
+    </Grid>
+        <GridSplitter Grid.Column="1" Width="2px" HorizontalAlignment="Stretch"/>
+        <TreeView x:Name="treeViewDegrees" Grid.Column="2">
+            
+        </TreeView>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿Imports System.Net.Http
+﻿Imports System.Net
+Imports System.Net.Http
 Imports System.Text.RegularExpressions
 Imports System.Threading
 
@@ -49,7 +50,9 @@ Public Class ImportCourses
                                                  Dim resp = Await c.GetAsync(addr)
                                                  Dim responsestr = Await resp.Content.ReadAsStringAsync()
                                                  Me.Dispatcher.Invoke(Sub()
-                                                                          listViewCourse.Items.Add(New ListViewCourseControl(ParseForCourse(responsestr), True))
+                                                                          SyncLock listViewCourse
+                                                                              AddInOrder(New ListViewCourseControl(ParseForCourse(responsestr), False))
+                                                                          End SyncLock
                                                                       End Sub)
                                                  Interlocked.Increment(doneCounter)
                                              End Using
@@ -69,6 +72,18 @@ Public Class ImportCourses
         doneTracker.Start()
     End Sub
 
+    Private Sub AddInOrder(courseControl As ListViewCourseControl)
+        Dim index As String = 0
+        For Each control As ListViewCourseControl In listViewCourse.Items
+            If String.Compare(courseControl.Course.CoursePrefix, control.Course.CoursePrefix) < 1 Then
+                listViewCourse.Items.Insert(index, courseControl)
+                Exit Sub
+            End If
+            index += 1
+        Next
+        listViewCourse.Items.Add(courseControl)
+    End Sub
+
     Private Function ParseForCourse(postResponse As String) As Course
         Dim description As CourseDescription = New CourseDescription("", "", "")
         Dim regx As Regex = New Regex("<div class=""ajaxcourseindentfix""><h3>.+</h3")
@@ -83,7 +98,7 @@ Public Class ImportCourses
         Dim courseDescription As String = ""
         While regxMatch.Success
             If regxMatch.Value <> "<hr><" Then
-                courseDescription = regxMatch.Value.Split(New String() {"<hr>", "<"}, StringSplitOptions.RemoveEmptyEntries).Last()
+                courseDescription = WebUtility.HtmlDecode(regxMatch.Value.Split(New String() {"<hr>", "<"}, StringSplitOptions.RemoveEmptyEntries).Last())
             End If
             regxMatch = regxMatch.NextMatch
         End While

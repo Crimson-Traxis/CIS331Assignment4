@@ -14,7 +14,8 @@ Class MainWindow
 
     Private Sub buttonBuildDegrees_Click(sender As Object, e As RoutedEventArgs) Handles buttonBuildDegrees.Click
         Dim builder As DegreeBuilder = New DegreeBuilder(degreeDictionary, courseList)
-        builder.Show()
+        builder.ShowDialog()
+        RefreshTreeView()
     End Sub
 
     Private Sub buttonAddDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddDegree.Click
@@ -31,6 +32,7 @@ Class MainWindow
         Else
             MessageBox.Show("Degree Prefix must not be left blank.")
         End If
+        RefreshTreeView()
     End Sub
 
     Private Sub buttonDeleteDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonDeleteDegree.Click
@@ -42,6 +44,7 @@ Class MainWindow
         For Each degreeControl As ListViewDegreeControl In deleteList
             listViewDegrees.Items.Remove(degreeControl)
         Next
+        RefreshTreeView()
     End Sub
 
     Private Sub buttonImportDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportDegree.Click
@@ -63,6 +66,7 @@ Class MainWindow
         If degreesNotAdded.Count > 0 Then
             MessageBox.Show("The folowing degrees were not added becuase they already existed." + Environment.NewLine + String.Join(Environment.NewLine, degreesNotAdded))
         End If
+        RefreshTreeView()
     End Sub
 
     Private Sub buttonAddCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddCourse.Click
@@ -123,17 +127,17 @@ Class MainWindow
         Next
     End Sub
 
-    Public Sub RefreshGui()
-        listViewDegrees.Items.Clear()
-        listViewCourses.Items.Clear()
-        For Each degree As Degree In degreeDictionary.Keys
-            listViewDegrees.Items.Add(New ListViewDegreeControl(degree))
-        Next
-        For Each course As Course In courseList
-            listViewCourses.Items.Add(course)
+    Public Sub RefreshTreeView()
+        treeViewDegrees.Items.Clear()
+        For Each degree As KeyValuePair(Of Degree, List(Of Course)) In degreeDictionary
+            Dim degreeHeader As TreeViewItem = New TreeViewItem()
+            degreeHeader.Header = degree.Key.DegreePrefix + " - " + degree.Key.DegreeName
+            For Each course As Course In degree.Value
+                Dim courseTreeItem As TreeViewItem = New TreeViewItem()
+                courseTreeItem.Header = course.CoursePrefix + " - " + course.CourseName
+                degreeHeader.Items.Add(courseTreeItem)
+            Next
+            treeViewDegrees.Items.Add(degreeHeader)
         Next
     End Sub
-
-
-
 End Class

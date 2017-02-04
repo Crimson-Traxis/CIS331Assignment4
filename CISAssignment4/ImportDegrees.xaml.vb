@@ -47,10 +47,12 @@ Public Class ImportDegrees
                                                      Dispatcher.Invoke(Sub()
                                                                            Dim tilte As String = m.Value.Replace("<td colspan=""2""><br><p><b>", "").Replace("</b></p></td>", "")
                                                                            If Not tilte.ToLower().Contains("other") Then
-                                                                               listViewDegrees.Items.Add(New ListViewDegreeControl(New Degree(coursePrefix, tilte)))
+                                                                               SyncLock listViewDegrees
+                                                                                   AddInOrder(New ListViewDegreeControl(New Degree(coursePrefix, tilte)))
+                                                                               End SyncLock
                                                                            End If
                                                                        End Sub)
-                                                     Exit While
+                                                     m = m.NextMatch
                                                  End While
                                                  Interlocked.Increment(doneCounter)
                                              End Using
@@ -67,6 +69,18 @@ Public Class ImportDegrees
                                                                      End Sub)
                                                End Sub)
         doneTracker.Start()
+    End Sub
+
+    Private Sub AddInOrder(degreeControl As ListViewDegreeControl)
+        Dim index As String = 0
+        For Each control As ListViewDegreeControl In listViewDegrees.Items
+            If String.Compare(degreeControl.Degree.DegreePrefix, control.Degree.DegreePrefix) < 1 Then
+                listViewDegrees.Items.Insert(index, degreeControl)
+                Exit Sub
+            End If
+            index += 1
+        Next
+        listViewDegrees.Items.Add(degreeControl)
     End Sub
 
     Private Sub buttonImport_Click(sender As Object, e As RoutedEventArgs) Handles buttonImport.Click
