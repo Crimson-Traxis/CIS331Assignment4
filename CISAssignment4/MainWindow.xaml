@@ -5,202 +5,217 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="725" MinHeight="725" MaxWidth="1125" MinWidth="1125">
+        Title="MainWindow" Height="550" Width="725" MinHeight="725" MinWidth="1125" BorderBrush="Red">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" MinWidth="700"/>
+            <ColumnDefinition Width="2*" MinWidth="550"/>
             <ColumnDefinition Width="2px"/>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
-    <Grid Margin="5" Grid.Column="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" MinHeight="200"/>
-            <RowDefinition Height="2px"/>
-            <RowDefinition Height="1*" MinHeight="200"/>
-            <RowDefinition Height="45px"/>
-        </Grid.RowDefinitions>
-        <GroupBox Header="Degree Maintenance" FontSize="11" Grid.Row="0" Margin="0,0,0,5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="80px"/>
-                </Grid.RowDefinitions>
-                <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+        <Grid Margin="5" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" MinHeight="200"/>
+                <RowDefinition Height="2px"/>
+                <RowDefinition Height="1*" MinHeight="200"/>
+                <RowDefinition Height="50px"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Degree Maintenance" FontSize="11" Grid.Row="0" Margin="0,0,0,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="100px"/>
+                    </Grid.RowDefinitions>
+                    <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
 
-                </ListView>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="textBoxDegreePrefix" HorizontalAlignment="Stretch" Height="20" Margin="5" Grid.Column="0" VerticalContentAlignment="Center">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Style.Resources>
-                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-                                                <VisualBrush.Visual>
-                                                    <Label Content="Degree Prefix" Foreground="LightGray" />
-                                                </VisualBrush.Visual>
-                                            </VisualBrush>
-                                        </Style.Resources>
-                                        <Style.Triggers>
-                                            <Trigger Property="Text" Value="">
-                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                            </Trigger>
-                                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                                <Setter Property="Background" Value="White" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                            <TextBox x:Name="textBoxDegreeName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Column="1" VerticalContentAlignment="Center">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Style.Resources>
-                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-                                                <VisualBrush.Visual>
-                                                    <Label Content="Degree Name" Foreground="LightGray" />
-                                                </VisualBrush.Visual>
-                                            </VisualBrush>
-                                        </Style.Resources>
-                                        <Style.Triggers>
-                                            <Trigger Property="Text" Value="">
-                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                            </Trigger>
-                                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                                <Setter Property="Background" Value="White" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="buttonAddDegree" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Margin="5" Content="Add Degree"/>
-                            <Button x:Name="buttonDeleteDegree" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="5" Content="Delete Degree(s)"/>
-                        </Grid>
-
-                    </Grid>
-                    <Grid Grid.Column="1">
+                    </ListView>
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20px"/>
-                            <ColumnDefinition Width=" 1*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Or" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button x:Name="buttonImportDegree" HorizontalAlignment="Stretch" Height="35" Grid.Column="1" Margin="5" Content="Import"/>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="textBoxDegreePrefix" HorizontalAlignment="Stretch" Height="20" Margin="5" Grid.Column="0" VerticalContentAlignment="Center">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Style.Resources>
+                                                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                                    <VisualBrush.Visual>
+                                                        <Label Content="Degree Prefix" Foreground="LightGray" />
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Style.Resources>
+                                            <Style.Triggers>
+                                                <Trigger Property="Text" Value="">
+                                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                                    <Setter Property="Background" Value="White" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                                <TextBox x:Name="textBoxDegreeName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Column="1" VerticalContentAlignment="Center">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Style.Resources>
+                                                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                                    <VisualBrush.Visual>
+                                                        <Label Content="Degree Name" Foreground="LightGray" />
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Style.Resources>
+                                            <Style.Triggers>
+                                                <Trigger Property="Text" Value="">
+                                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                                    <Setter Property="Background" Value="White" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="buttonAddDegree" HorizontalAlignment="Stretch"  Grid.Column="0" Margin="5" Content="Add Degree" Width="250"/>
+                                <Button x:Name="buttonDeleteDegree" HorizontalAlignment="Stretch"  Grid.Column="1" Margin="5" Content="Delete Degree(s)" Width="250"/>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20px"/>
+                                <ColumnDefinition Width=" 1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Or" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Button x:Name="buttonImportDegree" HorizontalAlignment="Stretch" Height="45" Grid.Column="1" Margin="5" Content="Import"/>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </GroupBox>
-        <GridSplitter Grid.Row="1" Height="2px" HorizontalAlignment="Stretch"/>
-        <GroupBox Header="Course Maintenance" FontSize="11" Grid.Row="2" Margin="0,5,0,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="80px"/>
-                </Grid.RowDefinitions>
-                <ListView x:Name="listViewCourses" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+            </GroupBox>
+            <GridSplitter Grid.Row="1" Height="2px" HorizontalAlignment="Stretch"/>
+            <GroupBox Header="Course Maintenance" FontSize="11" Grid.Row="2" Margin="0,5,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="100px"/>
+                    </Grid.RowDefinitions>
+                    <ListView x:Name="listViewCourses" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
 
-                </ListView>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="textBoxCoursePrefix" HorizontalAlignment="Stretch" Height="20" Margin="5" Grid.Column="0" VerticalContentAlignment="Center">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Style.Resources>
-                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-                                                <VisualBrush.Visual>
-                                                    <Label Content="Course Prefix" Foreground="LightGray" />
-                                                </VisualBrush.Visual>
-                                            </VisualBrush>
-                                        </Style.Resources>
-                                        <Style.Triggers>
-                                            <Trigger Property="Text" Value="">
-                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                            </Trigger>
-                                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                                <Setter Property="Background" Value="White" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                            <TextBox x:Name="textBoxCourseName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Column="1" VerticalContentAlignment="Center">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Style.Resources>
-                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
-                                                <VisualBrush.Visual>
-                                                    <Label Content="Course Name" Foreground="LightGray" />
-                                                </VisualBrush.Visual>
-                                            </VisualBrush>
-                                        </Style.Resources>
-                                        <Style.Triggers>
-                                            <Trigger Property="Text" Value="">
-                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                                            </Trigger>
-                                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                                <Setter Property="Background" Value="White" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="buttonAddCourse" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Margin="5" Content="Add Course"/>
-                            <Button x:Name="buttonDeleteCourse" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="5" Content="Delete Course(s)"/>
-                        </Grid>
-
-                    </Grid>
-                    <Grid Grid.Column="1">
+                    </ListView>
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20px"/>
-                            <ColumnDefinition Width=" 1*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Or" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button x:Name="buttonImportCourse" HorizontalAlignment="Stretch" Height="35" Grid.Column="1" Margin="5" Content="Import"/>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="textBoxCoursePrefix" HorizontalAlignment="Stretch" Height="20" Margin="5" Grid.Column="0" VerticalContentAlignment="Center">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Style.Resources>
+                                                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                                    <VisualBrush.Visual>
+                                                        <Label Content="Course Prefix" Foreground="LightGray" />
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Style.Resources>
+                                            <Style.Triggers>
+                                                <Trigger Property="Text" Value="">
+                                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                                    <Setter Property="Background" Value="White" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                                <TextBox x:Name="textBoxCourseName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Column="1" VerticalContentAlignment="Center">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Style.Resources>
+                                                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                                    <VisualBrush.Visual>
+                                                        <Label Content="Course Name" Foreground="LightGray" />
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Style.Resources>
+                                            <Style.Triggers>
+                                                <Trigger Property="Text" Value="">
+                                                    <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                                    <Setter Property="Background" Value="White" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="buttonAddCourse" HorizontalAlignment="Stretch" Grid.Column="0" Margin="5" Content="Add Course" Width="250"/>
+                                <Button x:Name="buttonDeleteCourse" HorizontalAlignment="Stretch" Grid.Column="1" Margin="5" Content="Delete Course(s)" Width="250"/>
+                            </Grid>
+
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20px"/>
+                                <ColumnDefinition Width=" 1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Or" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Button x:Name="buttonImportCourse" HorizontalAlignment="Stretch" Height="45" Grid.Column="1" Margin="5" Content="Import"/>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </GroupBox>
-        <Button x:Name="buttonBuildDegrees" Content="Build Degrees" Width="200px" Height="35px" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4"/>
-    </Grid>
+            </GroupBox>
+            <Button x:Name="buttonBuildDegrees" Content="Build Degrees" Width="200px" Height="40px" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4"/>
+        </Grid>
         <GridSplitter Grid.Column="1" Width="2px" HorizontalAlignment="Stretch"/>
-        <TreeView x:Name="treeViewDegrees" Grid.Column="2">
-            
-        </TreeView>
+        <Grid Grid.Column="2" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100px"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="50px"/>
+            </Grid.RowDefinitions>
+            <Image Source="Resources/svsubanner.png" Grid.Row="0"/>
+            <TreeView x:Name="treeViewDegrees" Grid.Row="1">
+
+            </TreeView>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="buttonSave" Content="Save" Grid.Column="0" HorizontalAlignment="Stretch" Height="40px" Margin="0,0,5,0" MaxWidth="250"/>
+                <Button x:Name="buttonLoad" Content="Load" Grid.Column="1" HorizontalAlignment="Stretch" Height="40px" Margin="5,0,0,0" MaxWidth="250"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

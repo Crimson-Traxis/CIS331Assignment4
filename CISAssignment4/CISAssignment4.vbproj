@@ -191,5 +191,8 @@
   <ItemGroup>
     <Resource Include="Resources\left-arrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\svsubanner.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

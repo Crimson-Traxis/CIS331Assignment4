@@ -23,7 +23,7 @@ Class MainWindow
             If textBoxDegreeName.Text <> "" Then
                 Dim deg As Degree = New Degree(textBoxDegreePrefix.Text.ToUpper(), textBoxDegreeName.Text)
                 degreeDictionary.Add(deg, New List(Of Course))
-                listViewDegrees.Items.Add(New ListViewDegreeControl(deg))
+                AddInOrderDegree(New ListViewDegreeControl(deg))
                 textBoxDegreeName.Text = ""
                 textBoxDegreePrefix.Text = ""
             Else
@@ -60,7 +60,7 @@ Class MainWindow
                 degreesNotAdded.Add(degree.DegreePrefix + " - " + degree.DegreeName)
             Else
                 degreeDictionary.Add(degree, New List(Of Course))
-                listViewDegrees.Items.Add(New ListViewDegreeControl(degree))
+                AddInOrderDegree(New ListViewDegreeControl(degree))
             End If
         Next
         If degreesNotAdded.Count > 0 Then
@@ -72,9 +72,9 @@ Class MainWindow
     Private Sub buttonAddCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonAddCourse.Click
         If textBoxCoursePrefix.Text <> "" Then
             If textBoxCourseName.Text <> "" Then
-                Dim cor As Course = New Course(New CourseDescription("", "", "0"), textBoxCoursePrefix.Text.ToUpper().Replace(" ", ""), textBoxCourseName.Text)
+                Dim cor As Course = New Course(New CourseDescription("", "", "0"), textBoxCoursePrefix.Text.ToUpper(), textBoxCourseName.Text)
                 courseList.Add(cor)
-                listViewCourses.Items.Add(New ListViewCourseControl(cor, True))
+                AddInOrderCourse(New ListViewCourseControl(cor, True))
                 textBoxCourseName.Text = ""
                 textBoxCoursePrefix.Text = ""
             Else
@@ -100,7 +100,7 @@ Class MainWindow
         Dim importCourseWind As ImportCourses = New ImportCourses(degreeDictionary)
         importCourseWind.ShowDialog()
         For Each course As Course In importCourseWind.CourseList
-            listViewCourses.Items.Add(New ListViewCourseControl(course, True))
+            AddInOrderCourse(New ListViewCourseControl(course, True))
             courseList.Add(course)
         Next
     End Sub
@@ -139,5 +139,37 @@ Class MainWindow
             Next
             treeViewDegrees.Items.Add(degreeHeader)
         Next
+    End Sub
+
+    Private Sub AddInOrderDegree(degreeControl As ListViewDegreeControl)
+        Dim index As String = 0
+        For Each control As ListViewDegreeControl In listViewDegrees.Items
+            If String.Compare(degreeControl.Degree.DegreePrefix, control.Degree.DegreePrefix) < 1 Then
+                listViewDegrees.Items.Insert(index, degreeControl)
+                Exit Sub
+            End If
+            index += 1
+        Next
+        listViewDegrees.Items.Add(degreeControl)
+    End Sub
+
+    Private Sub AddInOrderCourse(courseControl As ListViewCourseControl)
+        Dim index As String = 0
+        For Each control As ListViewCourseControl In listViewCourses.Items
+            If String.Compare(courseControl.Course.CoursePrefix, control.Course.CoursePrefix) < 1 Then
+                listViewCourses.Items.Insert(index, courseControl)
+                Exit Sub
+            End If
+            index += 1
+        Next
+        listViewCourses.Items.Add(courseControl)
+    End Sub
+
+    Private Sub buttonSave_Click(sender As Object, e As RoutedEventArgs) Handles buttonSave.Click
+
+    End Sub
+
+    Private Sub buttonLoad_Click(sender As Object, e As RoutedEventArgs) Handles buttonLoad.Click
+
     End Sub
 End Class
