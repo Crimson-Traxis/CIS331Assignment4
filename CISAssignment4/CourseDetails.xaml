@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="CourseDetails" Height="400" Width="550" MinHeight="400" MaxHeight="300" MinWidth="550" MaxWidth="550">
+        Title="Course Details" Height="400" Width="550" MinHeight="400" MaxHeight="300" MinWidth="550" MaxWidth="550">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="40px"/>
@@ -20,7 +20,7 @@
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Style.Resources>
-                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
+                        <VisualBrush x:Key="hintBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
                             <VisualBrush.Visual>
                                 <Label Content="Description" Foreground="LightGray"/>
                             </VisualBrush.Visual>
@@ -28,7 +28,7 @@
                     </Style.Resources>
                     <Style.Triggers>
                         <Trigger Property="Text" Value="">
-                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            <Setter Property="Background" Value="{StaticResource hintBrush}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter Property="Background" Value="White" />
@@ -43,7 +43,7 @@
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Style.Resources>
-                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
+                            <VisualBrush x:Key="hintBrush" AlignmentX="Left" AlignmentY="Top" Stretch="None">
                                 <VisualBrush.Visual>
                                     <Label Content="None" Foreground="LightGray" />
                                 </VisualBrush.Visual>
@@ -51,7 +51,7 @@
                         </Style.Resources>
                         <Style.Triggers>
                             <Trigger Property="Text" Value="">
-                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                <Setter Property="Background" Value="{StaticResource hintBrush}" />
                             </Trigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter Property="Background" Value="White" />
@@ -67,7 +67,7 @@
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Style.Resources>
-                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                            <VisualBrush x:Key="hintBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                 <VisualBrush.Visual>
                                     <Label Content="0" Foreground="LightGray" />
                                 </VisualBrush.Visual>
@@ -75,7 +75,7 @@
                         </Style.Resources>
                         <Style.Triggers>
                             <Trigger Property="Text" Value="">
-                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                <Setter Property="Background" Value="{StaticResource hintBrush}" />
                             </Trigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter Property="Background" Value="White" />
