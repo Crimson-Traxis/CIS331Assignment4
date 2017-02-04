@@ -1,5 +1,7 @@
-﻿Imports System.Net.Http
+﻿Imports System.IO
+Imports System.Net.Http
 Imports System.Text.RegularExpressions
+Imports Microsoft.Win32
 
 Class MainWindow
 
@@ -99,10 +101,22 @@ Class MainWindow
     Private Sub buttonImportCourse_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportCourse.Click
         Dim importCourseWind As ImportCourses = New ImportCourses(degreeDictionary)
         importCourseWind.ShowDialog()
-        For Each course As Course In importCourseWind.CourseList
-            AddInOrderCourse(New ListViewCourseControl(course, True))
-            courseList.Add(course)
+        Dim coursesInList As List(Of String) = New List(Of String)
+        Dim coursesNotAdded As List(Of String) = New List(Of String)
+        For Each course As Course In courseList
+            coursesInList.Add(course.CoursePrefix)
         Next
+        For Each course As Course In importCourseWind.CourseList
+            If Not coursesInList.Contains(course.CoursePrefix) Then
+                AddInOrderCourse(New ListViewCourseControl(course, True))
+                courseList.Add(course)
+            Else
+                coursesNotAdded.Add(course.CoursePrefix + " - " + course.CourseName)
+            End If
+        Next
+        If coursesNotAdded.Count > 0 Then
+            MessageBox.Show("The folowing courses were not added becuase they already existed." + Environment.NewLine + String.Join(Environment.NewLine, coursesNotAdded))
+        End If
     End Sub
 
     Private Sub textBoxDegreePrefix_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBoxDegreePrefix.TextChanged
@@ -166,10 +180,83 @@ Class MainWindow
     End Sub
 
     Private Sub buttonSave_Click(sender As Object, e As RoutedEventArgs) Handles buttonSave.Click
-
+        Dim saveDialog As SaveFileDialog = New SaveFileDialog()
+        saveDialog.DefaultExt = ".dcb"
+        saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        saveDialog.AddExtension = True
+        saveDialog.Title = "Save Degrees"
+        If saveDialog.ShowDialog() = True Then
+            Using stream As StreamWriter = New StreamWriter(saveDialog.FileName)
+                For Each course As Course In courseList
+                    stream.WriteLine("course<split/>" + course.CoursePrefix +
+                                     "<split/>" + course.CourseName +
+                                     "<split/>" + course.Description.Description +
+                                     "<split/>" + course.Description.Credits +
+                                     "<split/>" + course.Description.Prerequisite)
+                Next
+                For Each degree As KeyValuePair(Of Degree, List(Of Course)) In degreeDictionary
+                    stream.Write("degree<split/>" + degree.Key.DegreePrefix +
+                 "<split/>" + degree.Key.DegreeName)
+                    Dim courseListAsStrings As List(Of String) = New List(Of String)
+                    For Each course As Course In degree.Value
+                        courseListAsStrings.Add(course.CoursePrefix)
+                    Next
+                    stream.Write("<split/>" + String.Join("<split/>", courseListAsStrings) + Environment.NewLine)
+                Next
+            End Using
+        End If
     End Sub
 
     Private Sub buttonLoad_Click(sender As Object, e As RoutedEventArgs) Handles buttonLoad.Click
+        Dim openDialog As OpenFileDialog = New OpenFileDialog()
+        openDialog.Title = "Open Degrees(s)"
+        openDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        If openDialog.ShowDialog() = True Then
+            listViewCourses.Items.Clear()
+            listViewDegrees.Items.Clear()
+            courseList.Clear()
+            degreeDictionary.Clear()
+            treeViewDegrees.Items.Clear()
+            For Each file In openDialog.FileNames
+                Using stream As StreamReader = New StreamReader(file)
+                    While Not stream.EndOfStream
+                        Dim line As String = stream.ReadLine()
+                        Select Case line.Split(New String() {"<split/>"}, StringSplitOptions.RemoveEmptyEntries).First()
+                            Case "course"
+                                Try
+                                    Dim splitLine As String() = line.Split(New String() {"<split/>"}, StringSplitOptions.RemoveEmptyEntries)
+                                    Dim newCourse As Course = New Course(New CourseDescription(splitLine(3), splitLine(5), splitLine(4)), splitLine(1), splitLine(2))
+                                    courseList.Add(newCourse)
+                                    AddInOrderCourse(New ListViewCourseControl(newCourse, True))
+                                Catch ex As Exception
 
+                                End Try
+                            Case "degree"
+                                Try
+                                    Dim splitLine As String() = line.Split(New String() {"<split/>"}, StringSplitOptions.RemoveEmptyEntries)
+                                    Dim newDegree As Degree = New Degree(splitLine(1), splitLine(2))
+                                    Dim degreeList As List(Of Course) = New List(Of Course)
+                                    degreeDictionary.Add(newDegree, degreeList)
+                                    listViewDegrees.Items.Add(New ListViewDegreeControl(newDegree))
+                                    For index As Integer = 2 To splitLine.Length
+                                        For Each course As Course In courseList
+                                            If course.CoursePrefix = splitLine(index) Then
+                                                degreeList.Add(course)
+                                                Exit For
+                                            End If
+                                        Next
+                                    Next
+                                Catch ex As Exception
+
+                                End Try
+
+                            Case Else
+
+                        End Select
+                    End While
+                End Using
+            Next
+            RefreshTreeView()
+        End If
     End Sub
 End Class

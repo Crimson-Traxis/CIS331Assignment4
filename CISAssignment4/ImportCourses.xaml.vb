@@ -21,6 +21,7 @@ Public Class ImportCourses
         rowProgressBar.Height = New GridLength(35)
         Dim comboboxItem As DegreeComboBoxItem = comboBoxDegrees.SelectedItem
         listViewCourse.Items.Clear()
+        comboBoxDegrees.IsEnabled = False
         GenerateCourses(comboboxItem.Degree.DegreePrefix)
     End Sub
 
@@ -67,6 +68,7 @@ Public Class ImportCourses
                                                    End While
                                                    Dispatcher.Invoke(Sub()
                                                                          rowProgressBar.Height = New GridLength(0)
+                                                                         comboBoxDegrees.IsEnabled = True
                                                                      End Sub)
                                                End Sub)
         doneTracker.Start()

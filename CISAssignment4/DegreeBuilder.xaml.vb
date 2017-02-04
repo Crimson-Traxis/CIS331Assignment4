@@ -23,11 +23,35 @@
     End Sub
 
     Private Sub listViewDegreeCourses_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewDegreeCourses.SelectionChanged
+        ClearCourseDescriptionLayout()
         If listViewDegreeCourses.SelectedItems.Count > 0 Then
             buttonMovetoCourses.IsEnabled = True
         Else
             buttonMovetoCourses.IsEnabled = False
         End If
+        If listViewDegreeCourses.SelectedItems.Count = 1 Then
+            Dim courseControl As ListViewCourseControl = listViewDegreeCourses.SelectedItem
+            UpdateCourseDescriptionLayout(courseControl.Course)
+        End If
+
+    End Sub
+
+    Private Sub UpdateCourseDescriptionLayout(course As Course)
+        textBlockCourse.Text = course.CoursePrefix + " - " + course.CourseName
+        textBlockCredits.Text = course.Description.Credits + " cr"
+        textBlockCreditsLabel.Visibility = Visibility.Visible
+        textBlockDescription.Text = course.Description.Description
+        textBlockPrerequisite.Text = course.Description.Prerequisite
+        textBlockPrerequisiteLabel.Visibility = Visibility.Visible
+    End Sub
+
+    Private Sub ClearCourseDescriptionLayout()
+        textBlockCourse.Text = ""
+        textBlockCredits.Text = ""
+        textBlockCreditsLabel.Visibility = Visibility.Hidden
+        textBlockDescription.Text = ""
+        textBlockPrerequisite.Text = ""
+        textBlockPrerequisiteLabel.Visibility = Visibility.Hidden
     End Sub
 
     Private Sub listViewDegrees_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewDegrees.SelectionChanged
@@ -47,10 +71,15 @@
     End Sub
 
     Private Sub listViewCourses_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewCourses.SelectionChanged
+        ClearCourseDescriptionLayout()
         If listViewCourses.Items.Count > 0 Then
             buttonMovetoDegree.IsEnabled = True
         Else
             buttonMovetoDegree.IsEnabled = False
+        End If
+        If listViewCourses.SelectedItems.Count = 1 Then
+            Dim courseControl As ListViewCourseControl = listViewCourses.SelectedItem
+            UpdateCourseDescriptionLayout(courseControl.Course)
         End If
     End Sub
 

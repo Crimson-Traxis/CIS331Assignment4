@@ -183,9 +183,6 @@
     <Resource Include="Resources\information.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\save.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\right-arrow.png" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +190,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\svsubanner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\backup.png" />
+    <Resource Include="Resources\folder.png" />
+    <Resource Include="Resources\garbage.png" />
+    <Resource Include="Resources\add.png" />
+    <Resource Include="Resources\internet.png" />
+    <Content Include="Resources\transparent.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

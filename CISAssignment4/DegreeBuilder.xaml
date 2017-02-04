@@ -5,19 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="DegreeBuilder" Height="550" Width="925" MinHeight="725" MaxWidth="925" MinWidth="925">
+        Title="DegreeBuilder" Height="650" Width="925" MinHeight="650" MaxWidth="925" MinWidth="925">
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" MinHeight="200"/>
-            <RowDefinition Height="2px"/>
-            <RowDefinition Height="4*" MinHeight="200"/>
+            <RowDefinition Height="2*" MinHeight="225"/>
+            <RowDefinition Height="3*" MinHeight="200"/>
             <RowDefinition Height="50px"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="listViewDegrees" Grid.Row="0" HorizontalContentAlignment="Stretch" Margin="0,0,0,5" SelectionMode="Single">
-
-        </ListView>
-        <GridSplitter Grid.Row="1" Height="2px" HorizontalAlignment="Stretch"/>
-        <Grid Grid.Row="2" Margin="0,5,0,0">
+        <Grid Grid.Column="0" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="515"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="listViewDegrees" HorizontalContentAlignment="Stretch" Margin="0,0,5,0" SelectionMode="Single">
+            </ListView>
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40px"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="60px"/>
+                        <RowDefinition Height="40px"/>
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0">
+                        <TextBlock x:Name="textBlockCourse" FontSize="16" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </Border>
+                    <TextBlock x:Name="textBlockDescription" Grid.Row="1" TextWrapping="Wrap" Margin="5"/>
+                    <DockPanel LastChildFill="True" Height="55" VerticalAlignment="Top" Grid.Row=" 2"  Margin="5">
+                        <TextBlock x:Name="textBlockPrerequisiteLabel" Text="Prerequisite: " Visibility="Hidden" DockPanel.Dock="Left"/>
+                        <TextBlock x:Name="textBlockPrerequisite" TextWrapping="Wrap">
+                        </TextBlock>
+                    </DockPanel>
+                    <DockPanel LastChildFill="True" Grid.Row="3"  Margin="5">
+                        <TextBlock x:Name="textBlockCreditsLabel" Text="Credits: " Visibility="Hidden"/>
+                        <TextBlock x:Name="textBlockCredits" Height="20" MinWidth="20" VerticalAlignment="Top">
+                        </TextBlock>
+                    </DockPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="125px"/>
@@ -38,6 +65,6 @@
 
             </ListView>
         </Grid>
-        <Button x:Name="buttonExit" Width="250" Height="35" Content="Back to Degree and Course Maintenance" Grid.Row="3"/>
+        <Button x:Name="buttonExit" Width="250" Height="35" Content="Back to Degree and Course Maintenance" Grid.Row="2"/>
     </Grid>
 </Window>

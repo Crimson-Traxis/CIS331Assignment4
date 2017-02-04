@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CISAssignment4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="725" MinHeight="725" MinWidth="1125" BorderBrush="Red">
-    <Grid>
+        Title="MainWindow" Height="550" Width="800" MinHeight="725" MinWidth="800" BorderBrush="Red">
+    <Grid x:Name="gridMaster">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" MinWidth="550"/>
+            <ColumnDefinition Width="2*" MinWidth="495"/>
             <ColumnDefinition Width="2px"/>
             <ColumnDefinition Width="1*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
@@ -23,27 +23,19 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="100px"/>
+                        <RowDefinition Height="65px"/>
                     </Grid.RowDefinitions>
                     <ListView x:Name="listViewDegrees" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
 
                     </ListView>
                     <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox x:Name="textBoxDegreePrefix" HorizontalAlignment="Stretch" Height="20" Margin="5" Grid.Column="0" VerticalContentAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Width="275">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30px"/>
+                                    <RowDefinition Height="30px"/>
+                                </Grid.RowDefinitions>
+                                <TextBox x:Name="textBoxDegreePrefix" Width="90" Height="20" Margin="5" Grid.Row ="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
                                             <Style.Resources>
@@ -64,7 +56,7 @@
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>
-                                <TextBox x:Name="textBoxDegreeName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Column="1" VerticalContentAlignment="Center">
+                                <TextBox x:Name="textBoxDegreeName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Row="1" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
                                             <Style.Resources>
@@ -86,52 +78,37 @@
                                     </TextBox.Style>
                                 </TextBox>
                             </Grid>
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="buttonAddDegree" HorizontalAlignment="Stretch"  Grid.Column="0" Margin="5" Content="Add Degree" Width="250"/>
-                                <Button x:Name="buttonDeleteDegree" HorizontalAlignment="Stretch"  Grid.Column="1" Margin="5" Content="Delete Degree(s)" Width="250"/>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20px"/>
-                                <ColumnDefinition Width=" 1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Or" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Button x:Name="buttonImportDegree" HorizontalAlignment="Stretch" Height="45" Grid.Column="1" Margin="5" Content="Import"/>
-                        </Grid>
+                            <Button x:Name="buttonAddDegree"  Height="55" Width="55" Grid.Column="0" Margin="5" Background="Transparent" ToolTip="Add Degree">
+                                <Image Source="Resources/add.png"/>
+                            </Button>
+                            <Button x:Name="buttonDeleteDegree"  Height="55" Width="55" Grid.Column="1" Margin="5" Background="Transparent" ToolTip="Delete Degree">
+                                <Image Source="Resources/garbage.png"/>
+                            </Button>
+                            <Button x:Name="buttonImportDegree" Height="55" Width="55" Grid.Column="1" Margin="5" Background="Transparent" ToolTip="Import Degrees From Internet">
+                                <Image Source="Resources/internet.png"/>
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </GroupBox>
-            <GridSplitter Grid.Row="1" Height="2px" HorizontalAlignment="Stretch"/>
+            <GridSplitter Grid.Row="1" Height="2px" HorizontalAlignment="Stretch" Background="DarkGray"/>
             <GroupBox Header="Course Maintenance" FontSize="11" Grid.Row="2" Margin="0,5,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="100px"/>
+                        <RowDefinition Height="65px"/>
                     </Grid.RowDefinitions>
                     <ListView x:Name="listViewCourses" Grid.Row="0" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
 
                     </ListView>
                     <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox x:Name="textBoxCoursePrefix" HorizontalAlignment="Stretch" Height="20" Margin="5" Grid.Column="0" VerticalContentAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Width="275">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30px"/>
+                                    <RowDefinition Height="30px"/>
+                                </Grid.RowDefinitions>
+                                <TextBox x:Name="textBoxCoursePrefix" Width="90" Height="20" Margin="5" Grid.Row ="0" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
                                             <Style.Resources>
@@ -152,7 +129,7 @@
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>
-                                <TextBox x:Name="textBoxCourseName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Column="1" VerticalContentAlignment="Center">
+                                <TextBox x:Name="textBoxCourseName" HorizontalAlignment="Stretch" Height="20" Margin="5"  Grid.Row="1" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
                                             <Style.Resources>
@@ -174,48 +151,40 @@
                                     </TextBox.Style>
                                 </TextBox>
                             </Grid>
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="buttonAddCourse" HorizontalAlignment="Stretch" Grid.Column="0" Margin="5" Content="Add Course" Width="250"/>
-                                <Button x:Name="buttonDeleteCourse" HorizontalAlignment="Stretch" Grid.Column="1" Margin="5" Content="Delete Course(s)" Width="250"/>
-                            </Grid>
-
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20px"/>
-                                <ColumnDefinition Width=" 1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="Or" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Button x:Name="buttonImportCourse" HorizontalAlignment="Stretch" Height="45" Grid.Column="1" Margin="5" Content="Import"/>
-                        </Grid>
+                            <Button x:Name="buttonAddCourse"  Height="55" Width="55" Grid.Column="0" Margin="5" Background="Transparent" ToolTip="Add Course">
+                                <Image Source="Resources/add.png"/>
+                            </Button>
+                            <Button x:Name="buttonDeleteCourse"  Height="55" Width="55" Grid.Column="1" Margin="5" Background="Transparent" ToolTip="Delete Course">
+                                <Image Source="Resources/garbage.png"/>
+                            </Button>
+                            <Button x:Name="buttonImportCourse" Height="55" Width="55" Grid.Column="1" Margin="5" Background="Transparent" ToolTip="Import Courses From Internet">
+                                <Image Source="Resources/internet.png"/>
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </GroupBox>
             <Button x:Name="buttonBuildDegrees" Content="Build Degrees" Width="200px" Height="40px" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4"/>
         </Grid>
-        <GridSplitter Grid.Column="1" Width="2px" HorizontalAlignment="Stretch"/>
+        <GridSplitter Grid.Column="1" Width="2px" HorizontalAlignment="Stretch" Background="DarkGray" Margin="0,5,0,5"/>
         <Grid Grid.Column="2" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100px"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="50px"/>
+                <RowDefinition Height="65px"/>
             </Grid.RowDefinitions>
             <Image Source="Resources/svsubanner.png" Grid.Row="0"/>
             <TreeView x:Name="treeViewDegrees" Grid.Row="1">
 
             </TreeView>
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="buttonSave" Content="Save" Grid.Column="0" HorizontalAlignment="Stretch" Height="40px" Margin="0,0,5,0" MaxWidth="250"/>
-                <Button x:Name="buttonLoad" Content="Load" Grid.Column="1" HorizontalAlignment="Stretch" Height="40px" Margin="5,0,0,0" MaxWidth="250"/>
-            </Grid>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" >
+                <Button x:Name="buttonSave" Height="55" Width="55" Margin="5" Background="Transparent" ToolTip="Save Backup">
+                    <Image Source="Resources/backup.png"/>
+                </Button>
+                <Button x:Name="buttonLoad" Height="55" Width="55" Margin="5" Background="Transparent" ToolTip="Load Backup">
+                    <Image Source="Resources/folder.png"/>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

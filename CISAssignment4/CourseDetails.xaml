@@ -84,8 +84,8 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
-            <Button x:Name="buttonSave" Width="30" Height="30" DockPanel.Dock="Right">
-                <Image Stretch="Fill" Source="Resources/save.png"/>
+            <Button x:Name="buttonSave" Width="30" Height="30" DockPanel.Dock="Right" Background="Transparent">
+                <Image Stretch="Fill" Source="Resources/backup.png"/>
             </Button>
             <TextBlock Text=" cr"/>
         </DockPanel>
