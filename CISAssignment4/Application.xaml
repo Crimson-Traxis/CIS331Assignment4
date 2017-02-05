@@ -4,6 +4,8 @@
     xmlns:local="clr-namespace:CISAssignment4"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+        <ResourceDictionary>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

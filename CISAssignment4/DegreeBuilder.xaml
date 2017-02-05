@@ -18,6 +18,22 @@
                 <ColumnDefinition Width="515"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name="listViewDegrees" HorizontalContentAlignment="Stretch" Margin="0,0,5,0" SelectionMode="Single">
+                <ListView.Style>
+                    <Style TargetType="ListView">
+                        <Style.Resources>
+                            <VisualBrush x:Key="NoItemsBrush" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+                                <VisualBrush.Visual>
+                                    <Label Content="No Degrees" Foreground="LightGray" FontSize="30"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Items.Count, RelativeSource={RelativeSource Self}}" Value="0">
+                                <Setter Property="Background" Value="{StaticResource NoItemsBrush}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.Style>
             </ListView>
             <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
                 <Grid >
@@ -77,7 +93,22 @@
                 </Button>
             </StackPanel>
             <ListView x:Name="listViewCourses" Grid.Column="2" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
-
+                <ListView.Style>
+                    <Style TargetType="ListView">
+                        <Style.Resources>
+                            <VisualBrush x:Key="NoItemsBrush" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+                                <VisualBrush.Visual>
+                                    <Label Content="No Courses" Foreground="LightGray" FontSize="30"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Items.Count, RelativeSource={RelativeSource Self}}" Value="0">
+                                <Setter Property="Background" Value="{StaticResource NoItemsBrush}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.Style>
             </ListView>
         </Grid>
         <Button x:Name="buttonExit" Width="250" Height="35" Content="Back to Degree and Course Maintenance" Grid.Row="2"/>

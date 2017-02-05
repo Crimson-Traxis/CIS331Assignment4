@@ -15,7 +15,22 @@
         </Grid.RowDefinitions>
         <ComboBox x:Name="comboBoxDegrees" Width="250" Height="25" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalContentAlignment="Center"/>
         <ListView x:Name="listViewCourse" Grid.Row="1" Margin="5" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
-
+            <ListView.Style>
+                <Style TargetType="ListView">
+                    <Style.Resources>
+                        <VisualBrush x:Key="NoItemsBrush" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+                            <VisualBrush.Visual>
+                                <Label Content="Select Degree from Dropdown" Foreground="LightGray" FontSize="30"/>
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Items.Count, RelativeSource={RelativeSource Self}}" Value="0">
+                            <Setter Property="Background" Value="{StaticResource NoItemsBrush}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Style>
         </ListView>
         <ProgressBar x:Name="progressBarProgress" IsIndeterminate="True" Margin="5" Grid.Row="2"/>
         <Grid Grid.Row="3">
