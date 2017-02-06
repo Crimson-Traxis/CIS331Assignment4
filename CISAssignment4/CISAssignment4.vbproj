@@ -199,7 +199,6 @@
     <Resource Include="Resources\garbage.png" />
     <Resource Include="Resources\add.png" />
     <Resource Include="Resources\internet.png" />
-    <Resource Include="Resources\PresentationFramework.AeroLite.dll" />
     <Content Include="Resources\transparent.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

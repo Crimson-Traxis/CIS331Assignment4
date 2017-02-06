@@ -18,7 +18,7 @@
         buttonMovetoCourses.IsEnabled = False
         buttonMovetoDegree.IsEnabled = False
         For Each degree As Degree In degreeDictionary.Keys
-            AddInOrderDegree(New ListViewDegreeControl(degree))
+            AddToListViewInOrder(listViewDegrees, New ListViewDegreeControl(degree))
         Next
     End Sub
 
@@ -65,7 +65,7 @@
         Next
         For Each course As Course In _courseList
             If Not degreeCourseList.Contains(course) Then
-                listViewCourses.Items.Add(New ListViewCourseControl(course, False))
+                AddToListViewInOrder(listViewCourses, New ListViewCourseControl(course, False))
             End If
         Next
     End Sub
@@ -94,7 +94,7 @@
         Next
         For Each listViewCourse As ListViewCourseControl In coursestoMove
             listViewCourses.Items.Remove(listViewCourse)
-            AddInOrderDegreeCourse(listViewCourse)
+            listViewDegreeCourses.Items.Add(listViewCourse)
         Next
     End Sub
 
@@ -109,7 +109,7 @@
         Next
         For Each listViewCourse As ListViewCourseControl In coursestoMove
             listViewDegreeCourses.Items.Remove(listViewCourse)
-            AddInOrderCourse(listViewCourse)
+            AddToListViewInOrder(listViewCourses, listViewCourse)
         Next
     End Sub
 
@@ -117,39 +117,27 @@
         Me.Close()
     End Sub
 
-    Private Sub AddInOrderDegreeCourse(courseControl As ListViewCourseControl)
-        Dim index As String = 0
-        For Each control As ListViewCourseControl In listViewDegreeCourses.Items
-            If String.Compare(courseControl.Course.CoursePrefix, control.Course.CoursePrefix) < 1 Then
-                listViewDegreeCourses.Items.Insert(index, courseControl)
+    Private Sub AddToListViewInOrder(listView As ListView, course As ListViewCourseControl)
+        Dim index As Integer = 0
+        For Each control As ListViewCourseControl In listView.Items
+            If String.Compare(course.Course.CoursePrefix, control.Course.CoursePrefix) < 1 Then
+                listView.Items.Insert(index, course)
                 Exit Sub
             End If
             index += 1
         Next
-        listViewDegreeCourses.Items.Add(courseControl)
+        listView.Items.Add(course)
     End Sub
 
-    Private Sub AddInOrderCourse(courseControl As ListViewCourseControl)
-        Dim index As String = 0
-        For Each control As ListViewCourseControl In listViewCourses.Items
-            If String.Compare(courseControl.Course.CoursePrefix, control.Course.CoursePrefix) < 1 Then
-                listViewCourses.Items.Insert(index, courseControl)
+    Private Sub AddToListViewInOrder(listView As ListView, degree As ListViewDegreeControl)
+        Dim index As Integer = 0
+        For Each control As ListViewDegreeControl In listView.Items
+            If String.Compare(degree.Degree.DegreePrefix, control.Degree.DegreePrefix) < 1 Then
+                listView.Items.Insert(index, degree)
                 Exit Sub
             End If
             index += 1
         Next
-        listViewCourses.Items.Add(courseControl)
-    End Sub
-
-    Private Sub AddInOrderDegree(degreeControl As ListViewDegreeControl)
-        Dim index As String = 0
-        For Each control As ListViewDegreeControl In listViewDegrees.Items
-            If String.Compare(degreeControl.Degree.DegreePrefix, control.Degree.DegreePrefix) < 1 Then
-                listViewDegrees.Items.Insert(index, degreeControl)
-                Exit Sub
-            End If
-            index += 1
-        Next
-        listViewDegrees.Items.Add(degreeControl)
+        listView.Items.Add(degree)
     End Sub
 End Class

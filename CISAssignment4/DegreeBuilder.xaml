@@ -14,8 +14,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Margin="0,0,0,5">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=listViewDegreeCourses, Path=ActualWidth}"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="515"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name="listViewDegrees" HorizontalContentAlignment="Stretch" Margin="0,0,5,0" SelectionMode="Single">
                 <ListView.Style>
