@@ -1,12 +1,44 @@
-﻿Imports System.Net
+﻿'------------------------------------------------------------ 
+'-               File Name : ImportCourses.xaml.vb          - 
+'-                Part of Project: Assignment 4             - 
+'------------------------------------------------------------
+'-                Written By: Trent Killinger               - 
+'-                Written On: 2-1-17                        - 
+'------------------------------------------------------------ 
+'- File Purpose:                                            - 
+'-                                                          - 
+'- This file contains the import courses window where the   -
+'- user can import courses from SVSU's website.             -
+'------------------------------------------------------------
+'- Variable Dictionary                                      - 
+'- _degreeList - list of degrees to be added to the main gui-
+'------------------------------------------------------------
+Imports System.Net
 Imports System.Net.Http
 Imports System.Text.RegularExpressions
 Imports System.Threading
-
 Public Class ImportCourses
 
     Private _courseList As List(Of Course)
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: New                      - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine creates the gui and instantiates default -
+    '- member data/objects                                      -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- degreeDictionary - degree dictionary used to construct   -
+    '- combobox                                                 - 
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------
     Public Sub New(degreeDictionary As Dictionary(Of Degree, List(Of Course)))
         InitializeComponent()
         _courseList = New List(Of Course)
@@ -17,6 +49,25 @@ Public Class ImportCourses
         Next
     End Sub
 
+    '------------------------------------------------------------ 
+    '-    Subprogram Name: comboBoxDegrees_SelectionChanged     - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine gennerates courses based on the selected -
+    '- degrees.                                                 -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- comboboxItem - slected combobox item                     -
+    '------------------------------------------------------------
     Private Sub comboBoxDegrees_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles comboBoxDegrees.SelectionChanged
         rowProgressBar.Height = New GridLength(35)
         Dim comboboxItem As DegreeComboBoxItem = comboBoxDegrees.SelectedItem
@@ -25,6 +76,23 @@ Public Class ImportCourses
         GenerateCourses(comboboxItem.Degree.DegreePrefix)
     End Sub
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: GenerateCourses          - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine creates the courses by scraping SVSU's   -
+    '- website.                                                 -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- prefix - course prefix used to grab courses              - 
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------
     Private Async Sub GenerateCourses(prefix As String)
         System.Net.WebRequest.DefaultWebProxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials
         Dim responseString As String = ""
@@ -74,6 +142,22 @@ Public Class ImportCourses
         doneTracker.Start()
     End Sub
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: AddInOrder               - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine adds the course in order                 -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- courseControl - control to add to panel in order         -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- index - index of for loop                                -
+    '------------------------------------------------------------
     Private Sub AddInOrder(courseControl As ListViewCourseControl)
         Dim index As String = 0
         For Each control As ListViewCourseControl In listViewCourse.Items
@@ -86,6 +170,22 @@ Public Class ImportCourses
         listViewCourse.Items.Add(courseControl)
     End Sub
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: ParseForCourse           - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine parses the html respones into a course   -
+    '- object                                                   -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- postResponse - string response from post request         -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '------------------------------------------------------------
     Private Function ParseForCourse(postResponse As String) As Course
         Dim description As CourseDescription = New CourseDescription("", "", "")
         Dim regx As Regex = New Regex("<div class=""ajaxcourseindentfix""><h3>.+</h3")
@@ -123,6 +223,25 @@ Public Class ImportCourses
                                                                                                    LTrim(courseTitle.Split("-").Last()))
     End Function
 
+    '------------------------------------------------------------ 
+    '-              Subprogram Name: buttonImport_Click         - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine adds all the slected courses to a course -
+    '- list to be addded to the main gui's course list          -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (none)                                                   -
+    '------------------------------------------------------------
     Private Sub buttonImport_Click(sender As Object, e As RoutedEventArgs) Handles buttonImport.Click
         For Each courseInList As ListViewCourseControl In listViewCourse.SelectedItems
             _courseList.Add(courseInList.Course)
@@ -130,6 +249,25 @@ Public Class ImportCourses
         Me.Close()
     End Sub
 
+    '------------------------------------------------------------ 
+    '-              Subprogram Name: buttonImportAll_Click      - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine adds all the listview courses to a course-
+    '- list to be addded to the main gui's course list          -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (none)                                                   -
+    '------------------------------------------------------------
     Private Sub buttonImportAll_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportAll.Click
         For Each courseInList As ListViewCourseControl In listViewCourse.Items
             _courseList.Add(courseInList.Course)
@@ -137,12 +275,19 @@ Public Class ImportCourses
         Me.Close()
     End Sub
 
-    Public Property CourseList() As List(Of Course)
+    '------------------------------------------------------------ 
+    '-                Property Name: CourseList                 - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Property Purpose:                                        - 
+    '-                                                          - 
+    '- This Property gets the CourseList                        -
+    '------------------------------------------------------------ 
+    Public Readonly Property CourseList() As List(Of Course)
         Get
             Return _courseList
         End Get
-        Set(ByVal value As List(Of Course))
-            _courseList = value
-        End Set
     End Property
 End Class

@@ -1,8 +1,42 @@
-﻿Public Class DegreeBuilder
+﻿'------------------------------------------------------------ 
+'-               File Name : DegreeBuilder.xaml.vb          - 
+'-                Part of Project: Assignment 4             - 
+'------------------------------------------------------------
+'-                Written By: Trent Killinger               - 
+'-                Written On: 2-1-17                        - 
+'------------------------------------------------------------ 
+'- File Purpose:                                            - 
+'-                                                          - 
+'- This file contains the gui that adds the courses to the  -
+'- degrees                                                  -
+'------------------------------------------------------------
+'- Variable Dictionary                                      - 
+'- _degreeDictionary - degree dictionary                    -
+'- _courseList - course list                                -
+'------------------------------------------------------------
+
+Public Class DegreeBuilder
 
     Private _degreeDictionary As Dictionary(Of Degree, List(Of Course))
     Private _courseList As List(Of Course)
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: New                      - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine creates the gui and instantiates default -
+    '- member data/objects                                      -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------
     Public Sub New()
         InitializeComponent()
         _degreeDictionary = New Dictionary(Of Degree, List(Of Course))
@@ -11,6 +45,24 @@
         buttonMovetoDegree.IsEnabled = False
     End Sub
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: New                      - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine creates the gui and instantiates default -
+    '- member data/objects                                      -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- degreeDictionary - degree dictionary                     -
+    '- courseList - course list                                 -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------
     Public Sub New(degreeDictionary As Dictionary(Of Degree, List(Of Course)), courseList As List(Of Course))
         InitializeComponent()
         _degreeDictionary = degreeDictionary
@@ -22,6 +74,25 @@
         Next
     End Sub
 
+    '------------------------------------------------------------ 
+    '- Subprogram Name: listViewDegreeCourses_SelectionChanged  -
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine determines if the user can add courses   -
+    '- to the selected degree and vise versa                    -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- courseControl - control that contains the course object  -
+    '------------------------------------------------------------
     Private Sub listViewDegreeCourses_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewDegreeCourses.SelectionChanged
         ClearCourseDescriptionLayout()
         If listViewDegreeCourses.SelectedItems.Count > 0 Then
@@ -36,6 +107,22 @@
 
     End Sub
 
+    '------------------------------------------------------------ 
+    '-     Subprogram Name: UpdateCourseDescriptionLayout       - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine updates the visual course description    -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- course - course object to display                        -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------
     Private Sub UpdateCourseDescriptionLayout(course As Course)
         textBlockCourse.Text = course.CoursePrefix + " - " + course.CourseName
         textBlockCredits.Text = course.Description.Credits + " cr"
@@ -45,6 +132,22 @@
         textBlockPrerequisiteLabel.Visibility = Visibility.Visible
     End Sub
 
+    '------------------------------------------------------------ 
+    '-     Subprogram Name: ClearCourseDescriptionLayout        - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine clears the visual course description     -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- (none)                                                   -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------
     Private Sub ClearCourseDescriptionLayout()
         textBlockCourse.Text = ""
         textBlockCredits.Text = ""
@@ -54,6 +157,26 @@
         textBlockPrerequisiteLabel.Visibility = Visibility.Hidden
     End Sub
 
+    '------------------------------------------------------------ 
+    '-     Subprogram Name: listViewDegrees_SelectionChanged    -
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine updates the listviews by reading the     -
+    '- degreedictionary and courselist                          -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- listViewDegree - selected degree control                 -
+    '- degreeCourseList - list of courses in slected degree     -
+    '------------------------------------------------------------
     Private Sub listViewDegrees_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewDegrees.SelectionChanged
         listViewDegreeCourses.Items.Clear()
         listViewCourses.Items.Clear()
@@ -70,6 +193,25 @@
         Next
     End Sub
 
+    '------------------------------------------------------------ 
+    '-      Subprogram Name: listViewCourses_SelectionChanged   -
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine determines if the user can add courses   -
+    '- to the selected degree and vise versa                    -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- courseControl - control that contains the course object  -
+    '------------------------------------------------------------
     Private Sub listViewCourses_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles listViewCourses.SelectionChanged
         ClearCourseDescriptionLayout()
         If listViewCourses.Items.Count > 0 Then
@@ -83,6 +225,28 @@
         End If
     End Sub
 
+    '------------------------------------------------------------ 
+    '-          Subprogram Name: buttonMovetoDegree_Click       -
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine updates the degree in the degree         -
+    '- dictionary then moves the controls to the appropriate    -
+    '- listview                                                 -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- coursestoMove - course to move                           -
+    '- listViewDegree - selected degree                         -
+    '- degreeCourseList - degree's list of courses              -
+    '------------------------------------------------------------
     Private Sub buttonMovetoDegree_Click(sender As Object, e As RoutedEventArgs) Handles buttonMovetoDegree.Click
         Dim coursestoMove As List(Of ListViewCourseControl) = New List(Of ListViewCourseControl)
         Dim listViewDegree As ListViewDegreeControl = listViewDegrees.SelectedItem
@@ -98,6 +262,28 @@
         Next
     End Sub
 
+    '------------------------------------------------------------ 
+    '-          Subprogram Name: buttonMovetoCourses_Click      -
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine updates the degree in the degree         -
+    '- dictionary then moves the controls to the appropriate    -
+    '- listview                                                 -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- coursestoMove - course to move                           -
+    '- listViewDegree - selected degree                         -
+    '- degreeCourseList - degree's list of courses              -
+    '------------------------------------------------------------
     Private Sub buttonMovetoCourses_Click(sender As Object, e As RoutedEventArgs) Handles buttonMovetoCourses.Click
         Dim coursestoMove As List(Of ListViewCourseControl) = New List(Of ListViewCourseControl)
         Dim listViewDegree As ListViewDegreeControl = listViewDegrees.SelectedItem
@@ -113,10 +299,46 @@
         Next
     End Sub
 
+    '------------------------------------------------------------ 
+    '-              Subprogram Name: buttonExit_Click           -
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine exits the application                    -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (none)                                                   -
+    '------------------------------------------------------------
     Private Sub buttonExit_Click(sender As Object, e As RoutedEventArgs) Handles buttonExit.Click
         Me.Close()
     End Sub
 
+    '------------------------------------------------------------ 
+    '-      Subprogram Name: AddToListViewInOrder               - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine adds the course to the passed panel      -
+    '- in order                                                 -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- listView - panel to add the control                      -
+    '- course - course control to add inorder                   -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- index - index of for loop                                -
+    '------------------------------------------------------------
     Private Sub AddToListViewInOrder(listView As ListView, course As ListViewCourseControl)
         Dim index As Integer = 0
         For Each control As ListViewCourseControl In listView.Items
@@ -129,6 +351,24 @@
         listView.Items.Add(course)
     End Sub
 
+    '------------------------------------------------------------ 
+    '-      Subprogram Name: AddToListViewInOrder               - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine adds the course to the passed panel      -
+    '- in order                                                 -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- listView - panel to add the control                      -
+    '- degree - degree control to add inorder                   -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- index - index of for loop                                -
+    '------------------------------------------------------------
     Private Sub AddToListViewInOrder(listView As ListView, degree As ListViewDegreeControl)
         Dim index As Integer = 0
         For Each control As ListViewDegreeControl In listView.Items

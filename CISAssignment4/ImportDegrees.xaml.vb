@@ -1,4 +1,20 @@
-﻿Imports System.Net.Http
+﻿'------------------------------------------------------------ 
+'-               File Name : ImportDegrees.xaml.vb          - 
+'-                Part of Project: Assignment 4             - 
+'------------------------------------------------------------
+'-                Written By: Trent Killinger               - 
+'-                Written On: 2-1-17                        - 
+'------------------------------------------------------------ 
+'- File Purpose:                                            - 
+'-                                                          - 
+'- This file contains the importdegrees window where the    -
+'- user can import degrees from SVSU's website.             -
+'------------------------------------------------------------
+'- Variable Dictionary                                      - 
+'- _degreeList - list of degrees to be added to the main gui-
+'------------------------------------------------------------
+
+Imports System.Net.Http
 Imports System.Text.RegularExpressions
 Imports System.Threading
 
@@ -6,12 +22,45 @@ Public Class ImportDegrees
 
     Private _degreeList As List(Of Degree)
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: New                      - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine creates the gui and instantiates default -
+    '- member data/objects                                      -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------
     Public Sub New()
         InitializeComponent()
         _degreeList = New List(Of Degree)
         SyncFromOnline()
     End Sub
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: SyncFromOnline           - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine scrapes SVSU's webpage for degrees then  -
+    '- creates them in memory.                                  -
+    '------------------------------------------------------------ 
+    '- Parameter Dictionary:                                    - 
+    '- (None)                                                   - 
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '------------------------------------------------------------
     Public Async Sub SyncFromOnline()
         System.Net.WebRequest.DefaultWebProxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials
         Dim degreePrefixes As List(Of String) = New List(Of String)
@@ -71,6 +120,22 @@ Public Class ImportDegrees
         doneTracker.Start()
     End Sub
 
+    '------------------------------------------------------------ 
+    '-                Subprogram Name: AddInOrder               - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine adds the degree in order                 -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- degreeControl - control to add to panel in order         -
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- index - index of for loop                                -
+    '------------------------------------------------------------
     Private Sub AddInOrder(degreeControl As ListViewDegreeControl)
         Dim index As String = 0
         For Each control As ListViewDegreeControl In listViewDegrees.Items
@@ -83,6 +148,26 @@ Public Class ImportDegrees
         listViewDegrees.Items.Add(degreeControl)
     End Sub
 
+    '------------------------------------------------------------ 
+    '-              Subprogram Name: buttonImport_Click         - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine itterates through the selected items in  -
+    '- the listview, adding them to the courselist. Then exits  -
+    '- the application.                                         -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (none)                                                   -
+    '------------------------------------------------------------
     Private Sub buttonImport_Click(sender As Object, e As RoutedEventArgs) Handles buttonImport.Click
         For Each listViewDegree As ListViewDegreeControl In listViewDegrees.SelectedItems
             _degreeList.Add(listViewDegree.Degree)
@@ -90,19 +175,46 @@ Public Class ImportDegrees
         Me.Close()
     End Sub
 
-    Public Property DegreeList() As List(Of Degree)
-        Get
-            Return _degreeList
-        End Get
-        Set(ByVal value As List(Of Degree))
-            _degreeList = value
-        End Set
-    End Property
-
+    '------------------------------------------------------------ 
+    '-              Subprogram Name: buttonImportAll_Click      - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Subprogram Purpose:                                      - 
+    '-                                                          - 
+    '- This subroutine itterates through the  items in          -
+    '- the listview, adding them to the courselist. Then exits  -
+    '- the application.                                         -
+    '------------------------------------------------------------
+    '- Parameter Dictionary:                                    - 
+    '- sender – Identifies which particular control raised the  - 
+    '-          click event                                     - 
+    '- e – Holds the EventArgs object sent to the routine       -    
+    '------------------------------------------------------------ 
+    '- Local Variable Dictionary:                               - 
+    '- (none)                                                   -
+    '------------------------------------------------------------
     Private Sub buttonImportAll_Click(sender As Object, e As RoutedEventArgs) Handles buttonImportAll.Click
         For Each listViewDegree As ListViewDegreeControl In listViewDegrees.Items
             _degreeList.Add(listViewDegree.Degree)
         Next
         Me.Close()
     End Sub
+
+    '------------------------------------------------------------ 
+    '-                Property Name: DegreeList                 - 
+    '------------------------------------------------------------
+    '-                Written By: Trent Killinger               - 
+    '-                Written On: 2-1-17                        - 
+    '------------------------------------------------------------
+    '- Property Purpose:                                        - 
+    '-                                                          - 
+    '- This Property gets the DegreeList                        -
+    '------------------------------------------------------------ 
+    Public ReadOnly Property DegreeList() As List(Of Degree)
+        Get
+            Return _degreeList
+        End Get
+    End Property
 End Class
